@@ -1,0 +1,217 @@
+{% extends "base.html" %}
+
+{% block title %}STRIDE RUN CLUB - Admin{% endblock %}
+
+{% block content %}
+<!-- Admin Header -->
+<section class="admin-header">
+    <div class="container">
+        <h1>ADMIN DASHBOARD</h1>
+        <p>Manage runs and view registrations</p>
+    </div>
+</section>
+
+<!-- Statistics -->
+<section class="admin-stats">
+    <div class="container">
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">{{ stats.members }}</div>
+                <div class="stat-label">Total Members</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">{{ stats.runs }}</div>
+                <div class="stat-label">Total Runs</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">{{ stats.registrations }}</div>
+                <div class="stat-label">Total Registrations</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Runs Management -->
+<section class="admin-section">
+    <div class="container">
+        <div class="section-header">
+            <h2>UPCOMING RUNS</h2>
+            <button onclick="showModal('addRunModal')" class="btn btn-primary">ADD RUN</button>
+        </div>
+        
+        <div class="admin-table-container">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Distance</th>
+                        <th>Location</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for run in runs %}
+                    <tr>
+                        <td>{{ run.title }}</td>
+                        <td>{{ run.date.strftime('%Y-%m-%d') }}</td>
+                        <td>{{ run.time.strftime('%H:%M') }}</td>
+                        <td>{{ run.distance }} KM</td>
+                        <td>{{ run.starting_point }}</td>
+                        <td>
+                            <a href="{{ url_for('edit_run', run_id=run.id) }}" class="btn btn-outline btn-sm">Edit</a>
+                            <a href="{{ url_for('delete_run', run_id=run.id) }}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this run?')">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- Recent Registrations -->
+<section class="admin-section">
+    <div class="container">
+        <h2>RECENT REGISTRATIONS</h2>
+        <div class="admin-table-container">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Run</th>
+                        <th>Date</th>
+                        <th>Registered</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for reg in recent_registrations %}
+                    <tr>
+                        <td>{{ reg.name }}</td>
+                        <td>{{ reg.email }}</td>
+                        <td>{{ reg.title }}</td>
+                        <td>{{ reg.date.strftime('%Y-%m-%d') }}</td>
+                        <td>{{ reg.registered_at.strftime('%Y-%m-%d') }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- Add Run Modal -->
+{% if add_run_modal %}
+<div id="addRunModal" class="modal" style="display: block;">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Add New Run</h2>
+            <button onclick="closeModal('addRunModal')" class="modal-close">&times;</button>
+        </div>
+        <form method="POST" action="{{ url_for('add_run') }}" class="modal-form">
+            <div class="form-group">
+                <label for="title">Run Title</label>
+                <input type="text" id="title" name="title" required>
+            </div>
+            <div class="form-group">
+                <label for="date">Date</label>
+                <input type="date" id="date" name="date" required>
+            </div>
+            <div class="form-group">
+                <label for="time">Time</label>
+                <input type="time" id="time" name="time" required>
+            </div>
+            <div class="form-group">
+                <label for="distance">Distance (KM)</label>
+                <input type="number" id="distance" name="distance" step="0.1" required>
+            </div>
+            <div class="form-group">
+                <label for="starting_point">Starting Point</label>
+                <input type="text" id="starting_point" name="starting_point" required>
+            </div>
+            <div class="form-group">
+                <label for="pace">Pace</label>
+                <select id="pace" name="pace" required>
+                    <option value="Beginner Friendly">Beginner Friendly</option>
+                    <option value="Intermediate">Intermediate</option>
+                    <option value="Advanced">Advanced</option>
+                    <option value="All Levels">All Levels</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea id="description" name="description" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Run</button>
+        </form>
+    </div>
+</div>
+{% endif %}
+
+<!-- Edit Run Modal -->
+{% if edit_run %}
+<div id="editRunModal" class="modal" style="display: block;">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Edit Run</h2>
+            <button onclick="closeModal('editRunModal')" class="modal-close">&times;</button>
+        </div>
+        <form method="POST" action="{{ url_for('edit_run', run_id=edit_run.id) }}" class="modal-form">
+            <div class="form-group">
+                <label for="title">Run Title</label>
+                <input type="text" id="title" name="title" value="{{ edit_run.title }}" required>
+            </div>
+            <div class="form-group">
+                <label for="date">Date</label>
+                <input type="date" id="date" name="date" value="{{ edit_run.date.strftime('%Y-%m-%d') }}" required>
+            </div>
+            <div class="form-group">
+                <label for="time">Time</label>
+                <input type="time" id="time" name="time" value="{{ edit_run.time.strftime('%H:%M') }}" required>
+            </div>
+            <div class="form-group">
+                <label for="distance">Distance (KM)</label>
+                <input type="number" id="distance" name="distance" step="0.1" value="{{ edit_run.distance }}" required>
+            </div>
+            <div class="form-group">
+                <label for="starting_point">Starting Point</label>
+                <input type="text" id="starting_point" name="starting_point" value="{{ edit_run.starting_point }}" required>
+            </div>
+            <div class="form-group">
+                <label for="pace">Pace</label>
+                <select id="pace" name="pace" required>
+                    <option value="Beginner Friendly" {% if edit_run.pace == 'Beginner Friendly' %}selected{% endif %}>Beginner Friendly</option>
+                    <option value="Intermediate" {% if edit_run.pace == 'Intermediate' %}selected{% endif %}>Intermediate</option>
+                    <option value="Advanced" {% if edit_run.pace == 'Advanced' %}selected{% endif %}>Advanced</option>
+                    <option value="All Levels" {% if edit_run.pace == 'All Levels' %}selected{% endif %}>All Levels</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea id="description" name="description" required>{{ edit_run.description }}</textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Update Run</button>
+        </form>
+    </div>
+</div>
+{% endif %}
+
+<script>
+function showModal(modalId) {
+    document.getElementById(modalId).style.display = 'block';
+}
+
+function closeModal(modalId) {
+    document.getElementById(modalId).style.display = 'none';
+}
+
+// Close modal when clicking outside
+window.onclick = function(event) {
+    if (event.target.classList.contains('modal')) {
+        event.target.style.display = 'none';
+    }
+}
+</script>
+{% endblock %}

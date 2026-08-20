@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}STRIDE RUN CLUB - Registration Successful{% endblock %}
+
+{% block content %}
+<!-- Success Section -->
+<section class="success-section">
+    <div class="container">
+        <div class="success-content">
+            <div class="success-icon">✓</div>
+            <h1>YOU'RE IN!</h1>
+            <p class="success-message">See you at the run.</p>
+            <p class="success-details">We've sent a confirmation to your email with the run details. Make sure to arrive on time and bring comfortable running gear.</p>
+            
+            <div class="success-actions">
+                <a href="{{ url_for('runs') }}" class="btn btn-primary">VIEW MORE RUNS</a>
+                <a href="{{ url_for('index') }}" class="btn btn-secondary">BACK TO HOME</a>
+            </div>
+            
+            <div class="success-tips">
+                <h3>RUN DAY TIPS</h3>
+                <ul>
+                    <li>Arrive 10 minutes early to check in</li>
+                    <li>Wear comfortable running shoes</li>
+                    <li>Bring water if it's a hot day</li>
+                    <li>Don't forget to stretch before and after</li>
+                    <li>Listen to your body and take breaks if needed</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

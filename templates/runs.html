@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block title %}STRIDE RUN CLUB - Runs{% endblock %}
+
+{% block content %}
+<!-- Header Section -->
+<section class="page-header">
+    <div class="container">
+        <h1>UPCOMING RUNS</h1>
+        <p>Find your next run and join the community</p>
+    </div>
+</section>
+
+<!-- Runs List Section -->
+<section class="runs-section">
+    <div class="container">
+        {% if runs %}
+        <div class="runs-list">
+            {% for run in runs %}
+            <div class="run-card">
+                <div class="run-date">
+                    <span class="run-day">{{ run.date.strftime('%d') }}</span>
+                    <span class="run-month">{{ run.date.strftime('%b') }}</span>
+                </div>
+                <div class="run-content">
+                    <h3>{{ run.title }}</h3>
+                    <div class="run-details">
+                        <span class="run-detail">🕐 {{ run.time.strftime('%I:%M %p') }}</span>
+                        <span class="run-detail">🏃 {{ run.distance }} KM</span>
+                        <span class="run-detail">📍 {{ run.starting_point }}</span>
+                    </div>
+                    <p class="run-description">{{ run.description }}</p>
+                    <div class="run-meta">
+                        <span class="run-pace">{{ run.pace }}</span>
+                        <span class="run-count">{{ run.registered_count }} runners registered</span>
+                    </div>
+                    <div class="run-actions">
+                        <a href="{{ url_for('run_details', run_id=run.id) }}" class="btn btn-outline">VIEW DETAILS</a>
+                        <a href="{{ url_for('join', run_id=run.id) }}" class="btn btn-primary">JOIN RUN</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="no-runs">
+            <p>No upcoming runs scheduled. Check back soon!</p>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- Info Section -->
+<section class="info-section">
+    <div class="container">
+        <div class="info-grid">
+            <div class="info-card">
+                <h3>🏃 All Paces Welcome</h3>
+                <p>Whether you're a beginner or experienced runner, you'll find a pace that works for you.</p>
+            </div>
+            <div class="info-card">
+                <h3>🤝 No One Left Behind</h3>
+                <p>We run together and support each other. The group waits for everyone.</p>
+            </div>
+            <div class="info-card">
+                <h3>📍 Great Locations</h3>
+                <p>Runs start from accessible locations with safe routes and good paths.</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

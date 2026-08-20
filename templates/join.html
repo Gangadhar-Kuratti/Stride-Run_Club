@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block title %}STRIDE RUN CLUB - Join Run{% endblock %}
+
+{% block content %}
+<!-- Header Section -->
+<section class="page-header">
+    <div class="container">
+        <h1>JOIN THE RUN</h1>
+        <p>{{ run.title }} - {{ run.date.strftime('%A, %B %d') }}</p>
+    </div>
+</section>
+
+<!-- Registration Form Section -->
+<section class="join-section">
+    <div class="container">
+        <div class="join-container">
+            <div class="run-summary">
+                <h2>{{ run.title }}</h2>
+                <div class="summary-details">
+                    <div class="summary-item">
+                        <span class="summary-icon">📅</span>
+                        <span>{{ run.date.strftime('%A, %B %d, %Y') }}</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-icon">🕐</span>
+                        <span>{{ run.time.strftime('%I:%M %p') }}</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-icon">🏃</span>
+                        <span>{{ run.distance }} KM</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-icon">📍</span>
+                        <span>{{ run.starting_point }}</span>
+                    </div>
+                </div>
+                <p class="run-description">{{ run.description }}</p>
+            </div>
+            
+            <div class="registration-form">
+                <h2>REGISTER FOR THIS RUN</h2>
+                <form method="POST" action="{{ url_for('register_for_run', run_id=run.id) }}" class="join-form" id="joinForm">
+                    <div class="form-group">
+                        <label for="name">Name *</label>
+                        <input type="text" id="name" name="name" required placeholder="Your full name">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email *</label>
+                        <input type="email" id="email" name="email" required placeholder="your@email.com">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Phone (optional)</label>
+                        <input type="tel" id="phone" name="phone" placeholder="Your phone number">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="experience">Running Experience *</label>
+                        <select id="experience" name="experience" required>
+                            <option value="">Select your experience</option>
+                            <option value="beginner">Beginner - New to running</option>
+                            <option value="returning">Returning - Getting back into it</option>
+                            <option value="regular">Regular - Run consistently</option>
+                            <option value="experienced">Experienced - Run frequently</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="preferred_distance">Preferred Distance *</label>
+                        <select id="preferred_distance" name="preferred_distance" required>
+                            <option value="">Select preferred distance</option>
+                            <option value="3-5km">3-5 KM</option>
+                            <option value="5-8km">5-8 KM</option>
+                            <option value="8-12km">8-12 KM</option>
+                            <option value="12km+">12+ KM</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-full">JOIN THE RUN</button>
+                </form>
+                
+                <div class="form-info">
+                    <p>By registering, you agree to participate at your own risk. Please ensure you are fit to run and follow safety guidelines during the run.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

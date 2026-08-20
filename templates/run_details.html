@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block title %}STRIDE RUN CLUB - {{ run.title }}{% endblock %}
+
+{% block content %}
+<!-- Header Section -->
+<section class="page-header">
+    <div class="container">
+        <h1>{{ run.title }}</h1>
+        <p>{{ run.date.strftime('%A, %B %d') }} at {{ run.time.strftime('%I:%M %p') }}</p>
+    </div>
+</section>
+
+<!-- Run Details Section -->
+<section class="run-details-section">
+    <div class="container">
+        <div class="run-details-content">
+            <div class="run-info-large">
+                <div class="info-row">
+                    <span class="info-label">Date</span>
+                    <span class="info-value">{{ run.date.strftime('%A, %B %d, %Y') }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Time</span>
+                    <span class="info-value">{{ run.time.strftime('%I:%M %p') }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Distance</span>
+                    <span class="info-value">{{ run.distance }} KM</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Starting Point</span>
+                    <span class="info-value">{{ run.starting_point }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Pace</span>
+                    <span class="info-value">{{ run.pace }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Registered Runners</span>
+                    <span class="info-value">{{ run.registered_count }}</span>
+                </div>
+            </div>
+            
+            <div class="run-description-large">
+                <h2>About This Run</h2>
+                <p>{{ run.description }}</p>
+            </div>
+        </div>
+        
+        <div class="run-cta">
+            <a href="{{ url_for('join', run_id=run.id) }}" class="btn btn-primary btn-large">JOIN THIS RUN</a>
+            <a href="{{ url_for('runs') }}" class="btn btn-secondary">VIEW ALL RUNS</a>
+        </div>
+    </div>
+</section>
+
+<!-- What to Expect Section -->
+<section class="what-to-expect">
+    <div class="container">
+        <h2>WHAT TO EXPECT</h2>
+        <div class="expect-grid">
+            <div class="expect-item">
+                <div class="expect-icon">👋</div>
+                <h3>Welcome & Introduction</h3>
+                <p>We start with a quick welcome and introduce any new runners.</p>
+            </div>
+            <div class="expect-item">
+                <div class="expect-icon">🏃</div>
+                <h3>The Run</h3>
+                <p>We run together at a comfortable pace. No one gets left behind.</p>
+            </div>
+            <div class="expect-item">
+                <div class="expect-icon">💬</div>
+                <h3>Post-Run Social</h3>
+                <p>Optional coffee or chat after the run for those who want to stay.</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

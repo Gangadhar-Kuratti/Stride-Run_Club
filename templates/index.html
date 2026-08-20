@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+
+{% block title %}STRIDE RUN CLUB - Home{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero">
+    <div class="container">
+        <div class="hero-content">
+            <h1 class="hero-title">STRIDE RUN CLUB</h1>
+            <p class="hero-tagline">RUN TOGETHER. GO FURTHER.</p>
+            <p class="hero-subtitle">A community for people who love running, movement and good company.</p>
+            <div class="hero-buttons">
+                {% if next_run %}
+                <a href="{{ url_for('join', run_id=next_run.id) }}" class="btn btn-primary">JOIN THE NEXT RUN</a>
+                {% else %}
+                <a href="{{ url_for('runs') }}" class="btn btn-primary">EXPLORE RUNS</a>
+                {% endif %}
+                <a href="{{ url_for('runs') }}" class="btn btn-secondary">EXPLORE RUNS</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Next Run Section -->
+{% if next_run %}
+<section class="next-run">
+    <div class="container">
+        <div class="next-run-card">
+            <div class="next-run-header">
+                <h2>NEXT RUN</h2>
+                <div class="countdown" id="countdown">
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="days">00</span>
+                        <span class="countdown-label">Days</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="hours">00</span>
+                        <span class="countdown-label">Hours</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="minutes">00</span>
+                        <span class="countdown-label">Minutes</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="seconds">00</span>
+                        <span class="countdown-label">Seconds</span>
+                    </div>
+                </div>
+            </div>
+            <div class="next-run-details">
+                <h3>{{ next_run.title }}</h3>
+                <div class="run-info">
+                    <div class="info-item">
+                        <span class="info-icon">📅</span>
+                        <span>{{ next_run.date.strftime('%A, %B %d') }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-icon">🕐</span>
+                        <span>{{ next_run.time.strftime('%I:%M %p') }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-icon">🏃</span>
+                        <span>{{ next_run.distance }} KM</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-icon">📍</span>
+                        <span>{{ next_run.starting_point }}</span>
+                    </div>
+                </div>
+                <p class="run-description">{{ next_run.description }}</p>
+                <a href="{{ url_for('join', run_id=next_run.id) }}" class="btn btn-primary">JOIN THIS RUN</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- About Preview Section -->
+<section class="about-preview">
+    <div class="container">
+        <h2 class="section-title">ABOUT STRIDE</h2>
+        <p class="about-text">Stride is a community built around running consistently, meeting new people and enjoying the process.</p>
+        <div class="values">
+            <div class="value-card">
+                <h3>RUN</h3>
+                <p>Consistent movement for body and mind</p>
+            </div>
+            <div class="value-card">
+                <h3>CONNECT</h3>
+                <p>Meet people who share your passion</p>
+            </div>
+            <div class="value-card">
+                <h3>GROW</h3>
+                <p>Improve together, whatever your pace</p>
+            </div>
+        </div>
+        <div class="section-center">
+            <a href="{{ url_for('about') }}" class="btn btn-secondary">LEARN MORE</a>
+        </div>
+    </div>
+</section>
+
+<!-- Community Stats Section -->
+<section class="stats">
+    <div class="container">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-number">{{ stats.members }}+</div>
+                <div class="stat-label">Runners</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">{{ stats.runs }}+</div>
+                <div class="stat-label">Runs</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">{{ stats.registrations }}+</div>
+                <div class="stat-label">Registrations</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta">
+    <div class="container">
+        <div class="cta-content">
+            <h2>READY TO JOIN THE RUN?</h2>
+            <p>No matter your pace or experience, there's a place for you at Stride.</p>
+            <a href="{{ url_for('runs') }}" class="btn btn-primary">FIND YOUR RUN</a>
+        </div>
+    </div>
+</section>
+
+<script>
+// Countdown timer for next run
+{% if next_run %}
+const runDate = new Date('{{ next_run.date }}T{{ next_run.time }}');
+const countdownInterval = setInterval(() => {
+    const now = new Date();
+    const distance = runDate - now;
+    
+    if (distance < 0) {
+        clearInterval(countdownInterval);
+        document.getElementById('countdown').innerHTML = '<p>The run is starting soon!</p>';
+        return;
+    }
+    
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    
+    document.getElementById('days').textContent = String(days).padStart(2, '0');
+    document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+    document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+    document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+}, 1000);
+{% endif %}
+</script>
+{% endblock %}

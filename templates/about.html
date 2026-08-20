@@ -1,0 +1,167 @@
+{% extends "base.html" %}
+
+{% block title %}STRIDE RUN CLUB - About{% endblock %}
+
+{% block content %}
+<!-- Header Section -->
+<section class="page-header">
+    <div class="container">
+        <h1>ABOUT STRIDE</h1>
+        <p>A community built around running consistently</p>
+    </div>
+</section>
+
+<!-- Mission Section -->
+<section class="mission-section">
+    <div class="container">
+        <div class="mission-content">
+            <h2>OUR MISSION</h2>
+            <p>Stride is a community built around running consistently, meeting new people and enjoying the process. We believe that running is better together and that everyone deserves a supportive community to help them stay active.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Values Section -->
+<section class="values-section">
+    <div class="container">
+        <h2>OUR VALUES</h2>
+        <div class="values-list">
+            <div class="value-item">
+                <div class="value-icon">🏃</div>
+                <h3>RUN</h3>
+                <p>Consistent movement for body and mind. We believe in the power of regular running to improve physical and mental health.</p>
+            </div>
+            <div class="value-item">
+                <div class="value-icon">🤝</div>
+                <h3>CONNECT</h3>
+                <p>Meet people who share your passion. Running together creates friendships and support networks that extend beyond the run.</p>
+            </div>
+            <div class="value-item">
+                <div class="value-icon">📈</div>
+                <h3>GROW</h3>
+                <p>Improve together, whatever your pace. We celebrate personal progress and support each other's goals.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Who Can Join Section -->
+<section class="who-section">
+    <div class="container">
+        <h2>WHO CAN JOIN</h2>
+        <div class="who-content">
+            <p>Everyone is welcome at Stride Run Club. Whether you're:</p>
+            <ul>
+                <li>Complete beginner who has never run before</li>
+                <li>Returning to running after a break</li>
+                <li>Experienced runner looking for company</li>
+                <li>Training for a specific race or distance</li>
+                <li>Just looking to get moving and meet people</li>
+            </ul>
+            <p>There's a place for you here. We have runs for different paces and distances, and we always ensure no one gets left behind.</p>
+        </div>
+    </div>
+</section>
+
+<!-- What Happens Section -->
+<section class="what-happens-section">
+    <div class="container">
+        <h2>WHAT HAPPENS DURING A RUN</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-time">10 minutes before</div>
+                <div class="timeline-content">
+                    <h3>Arrival & Check-in</h3>
+                    <p>Arrive at the starting point, say hello to fellow runners, and get ready.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-time">Start time</div>
+                <div class="timeline-content">
+                    <h3>Welcome & Briefing</h3>
+                    <p>Quick welcome, introduce new faces, and go over the route for the day.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-time">During the run</div>
+                <div class="timeline-content">
+                    <h3>The Run</h3>
+                    <p>We run together at a conversational pace. Groups form naturally based on pace, and we regroup at points along the route.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-time">After the run</div>
+                <div class="timeline-content">
+                    <h3>Cool Down & Social</h3>
+                    <p>Stretch together and optional coffee/chat for those who want to stay and socialize.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Beginner Section -->
+<section class="beginner-section">
+    <div class="container">
+        <h2>BEGINNER-FRIENDLY</h2>
+        <div class="beginner-grid">
+            <div class="beginner-card">
+                <h3>No Experience Needed</h3>
+                <p>You don't need any running experience to join. Many of our members started as complete beginners.</p>
+            </div>
+            <div class="beginner-card">
+                <h3>Walk-Run Welcome</h3>
+                <p>Walking and running combinations are totally fine. Listen to your body and do what feels right.</p>
+            </div>
+            <div class="beginner-card">
+                <h3>Supportive Environment</h3>
+                <p>Our community is supportive and encouraging. Everyone starts somewhere, and we celebrate every step.</p>
+            </div>
+            <div class="beginner-card">
+                <h3>Short Distances Available</h3>
+                <p>We offer shorter distance options for beginners. You can always build up gradually.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Etiquette Section -->
+<section class="etiquette-section">
+    <div class="container">
+        <h2>CLUB ETIQUETTE</h2>
+        <div class="etiquette-list">
+            <div class="etiquette-item">
+                <h3>Be On Time</h3>
+                <p>Please arrive on time so we can start together as a group.</p>
+            </div>
+            <div class="etiquette-item">
+                <h3>Stay Together</h3>
+                <p>We run as a group. If you're faster, slow down occasionally. If you're slower, we'll wait for you.</p>
+            </div>
+            <div class="etiquette-item">
+                <h3>Be Friendly</h3>
+                <p>Say hello to fellow runners, introduce yourself to new faces, and be inclusive.</p>
+            </div>
+            <div class="etiquette-item">
+                <h3>Listen to Your Body</h3>
+                <p>It's okay to walk, take breaks, or cut a run short. Your health comes first.</p>
+            </div>
+            <div class="etiquette-item">
+                <h3>Respect the Route</h3>
+                <p>Follow the planned route, be aware of your surroundings, and share paths with others.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta">
+    <div class="container">
+        <div class="cta-content">
+            <h2>READY TO JOIN US?</h2>
+            <p>Sign up for your first run and experience the Stride community.</p>
+            <a href="{{ url_for('runs') }}" class="btn btn-primary">FIND YOUR RUN</a>
+        </div>
+    </div>
+</section>
+{% endblock %}
