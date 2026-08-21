@@ -149,7 +149,7 @@ def login():
         password = request.form['password']
         
         # Simple admin check (in production, use proper admin table)
-        if email == 'admin@stride.com' and password == 'admin123':
+        if email == 'admin@stride.com' and password == 'nikhil@striderunclub':
             session['admin_id'] = 1
             session['admin_email'] = email
             flash('Welcome, Admin!', 'success')
